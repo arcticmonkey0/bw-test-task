@@ -24,8 +24,8 @@ namespace TestTask.Tests.Unit
             _defaultUser = new List<User>() { new("Bill The Tester", _entityId) };
         }
 
-        [TestCase(Subject.Chemistry, "I suspect this is 30 char long")]
-        [TestCase(Subject.Physics, "Group")]
+        [TestCase(Subject.Chemistry, "Group")]
+        [TestCase(Subject.Physics, "I suspect this is 30 char long")]
         public async Task StudyGroupWithAllowedNameSubjectAndSize_ShouldBeCreated(Subject subject, string groupName)
         {
             var studyGroup = new StudyGroup(_entityId, groupName, subject, DateTime.Now, _defaultUser);
