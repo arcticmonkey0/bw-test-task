@@ -24,11 +24,11 @@ namespace TestTask.Tests.Unit
             _defaultUser = new List<User>() { new("Bill The Tester", _entityId) };
         }
 
-        [TestCase(Subject.Chemistry)]
-        [TestCase(Subject.Physics)]
-        public async Task StudyGroupWithAllowedNameSubjectAndSize_ShouldBeCreated(Subject subject)
+        [TestCase(Subject.Chemistry, "I suspect this is 30 char long")]
+        [TestCase(Subject.Physics, "Group")]
+        public async Task StudyGroupWithAllowedNameSubjectAndSize_ShouldBeCreated(Subject subject, string groupName)
         {
-            var studyGroup = new StudyGroup(_entityId, "Group", subject, DateTime.Now, _defaultUser);
+            var studyGroup = new StudyGroup(_entityId, groupName, subject, DateTime.Now, _defaultUser);
             var result = await _studyGroupController.CreateStudyGroup(studyGroup);
             Assert.Multiple(() =>
             {
@@ -51,6 +51,7 @@ namespace TestTask.Tests.Unit
 
         [TestCase("Math")]
         [TestCase("Mathematics study group for Algebra")]
+        [TestCase("")]
         public async Task CreateStudyGroup_InvalidNameLength_ShouldFail(string groupName)
         {
             var studyGroup = new StudyGroup(_entityId, groupName, Subject.Math, DateTime.Now, _defaultUser);
